@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: helm-minimal-configmap
+data:
+  redis_host: "{{ .Values.config.redis_host }}"
+  redis_port: "{{ .Values.config.redis_port }}"
+  app_host: "{{ .Values.config.app_host }}"
+  app_port: "{{ .Values.config.app_port }}"
+  flask_debug: "{{ .Values.config.flask_debug }}"
+

@@ -1,0 +1,19 @@
+replicaCount: 2
+
+name: helm-minimal
+
+image:
+  repository: localhost:5000/helm-minimal
+
+service:
+  port: 8080
+
+config:
+  redis_host: redis-master.default.svc.cluster.local
+  redis_port: !!string 6379
+  app_host: !!string 0.0.0.0
+  app_port: !!string 8080
+  flask_debug: !!string 1
+
+secrets:
+  some_secret: seeecret!
