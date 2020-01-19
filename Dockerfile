@@ -1,4 +1,4 @@
-FROM python:3.7.3-alpine3.9
+FROM python:3.7-alpine3.10
 RUN apk add build-base
 ADD application.py Pipfile Pipfile.lock /
 RUN pip install pipenv

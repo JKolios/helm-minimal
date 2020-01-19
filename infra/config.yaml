@@ -3,7 +3,7 @@ replicaCount: 2
 name: helm-minimal
 
 image:
-  repository: localhost:5000/helm-minimal
+  repository: trow.kube-public:31000/helm-minimal
 
 service:
   port: 8080
@@ -16,4 +16,4 @@ config:
   flask_debug: !!string 1
 
 secrets:
-  some_secret: seeecret!
+  redis_password: seeecret!

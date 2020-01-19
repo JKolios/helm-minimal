@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: {{ .Values.name }}-deployment
@@ -16,8 +16,9 @@ spec:
         app: {{ .Values.name }}
     spec:
       containers:
-      - image: {{ .Values.image.repository }}
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         name: {{ .Values.name }}
+        imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.service.port }}
         env:
@@ -46,8 +47,8 @@ spec:
               configMapKeyRef:
                 name: helm-minimal-configmap
                 key: flask_debug
-        - name: SOME_SECRET
+        - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
               name: helm-minimal-secret
-              key: some_secret
+              key: redisPassword

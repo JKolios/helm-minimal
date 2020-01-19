@@ -1,0 +1,21 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+
+releases:
+- name: helm-minimal
+  namespace: default
+  chart: "infra/"
+  values: 
+  - "infra/config.yaml"
+  set:
+  - name: image.tag
+    value: {{ requiredEnv "IMAGE_TAG" | quote}}
+- name: redis
+  namespace: default
+  chart: stable/redis
+  set:
+  - name: existingSecret
+    value: helm-minimal-secret
+  - name: existingSecretPasswordKey
+    value: redisPassword

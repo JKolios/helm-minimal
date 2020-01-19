@@ -1,11 +1,11 @@
 #! /bin/bash
-helm tiller start
+export IMAGE_TAG=$(date +%s)
+export HELMFILE_HELM3=1
 
-helm del --purge redis
-helm install stable/redis --name redis --set usePassword=false
+docker build . -t trow.kube-public:31000/helm-minimal:$IMAGE_TAG --network=host
+docker push trow.kube-public:31000/helm-minimal:$IMAGE_TAG
 
-helm del --purge helm-minimal
-helm install -f infra/config.yaml --name helm-minimal ./infra
+helmfile apply
 
-minikube service helm-minimal
+minikube service helm-minimal -n default
 

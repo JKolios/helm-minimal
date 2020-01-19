@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 
 def get_redis():
   if 'redis_connection' not in flask.g:
-    redis_connection = redis.Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'), db=os.getenv('REDIS_DB'))
+    redis_connection = redis.Redis(host=os.getenv('REDIS_HOST'), port=os.getenv('REDIS_PORT'), db=os.getenv('REDIS_DB'), password=os.getenv('REDIS_PASSWORD'))
     flask.g.redis_connection = redis_connection
   return flask.g.redis_connection
 
@@ -21,8 +21,7 @@ def hello():
   get_redis().incr('count')
   response = {
     "message": "Hello, World!", 
-    "count": get_count(),
-    "secret": os.getenv('SOME_SECRET')
+    "count": get_count()
   }
   return json.dumps(response)
 
